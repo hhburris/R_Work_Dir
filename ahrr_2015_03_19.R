@@ -631,3 +631,52 @@ mod5b<-gee(value ~ BMI_2T + variable + gest_age_weeks_d + Fenton_Z_score +edad +
              multiparous, id = folio, corstr = "exchangeable", data = ahrrlong2)
 summary(mod5b)$coefficients
 print.model(mod5b)
+
+ChristLab<-ahrrlong2[ahrrlong2$Christiani_Lab=="1",]
+
+mod5i<-gee(value ~ BMI_2T + variable + gest_age_weeks_d + Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, id = folio, corstr = "exchangeable", data = ChristLab)
+summary(mod5i)$coefficients
+print.model(mod5i)
+
+Channing<-ahrrlong2[ahrrlong2$Christiani_Lab=="0",]
+mod5j<-gee(value ~ BMI_2T + variable + gest_age_weeks_d + Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, id = folio, corstr = "exchangeable", data = Channing)
+summary(mod5j)$coefficients
+print.model(mod5j)
+
+modzz8<-lm(ahrr_mean~BMI_2T+ gest_age_weeks_d +
+             Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, (data=ChristLab))
+
+summary(modzz8)
+zz8<-resid(modzz8)
+as.data.frame(zz8)
+#Christiani lab 266
+
+modzz9<-lm(ahrr_mean~BMI_2T+ gest_age_weeks_d +
+             Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, (data=Channing))
+
+summary(modzz9)
+zz9<-resid(modzz9)
+as.data.frame(zz9)
+#Channing 241
+
+# Self-reported BMI
+
+#prepregnBMI
+
+mod5PP<-gee(value ~ prepregnBMI + variable + gest_age_weeks_d + Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, id = folio, corstr = "exchangeable", data = ahrrlong2)
+summary(mod5PP)$coefficients
+print.model(mod5PP)
+
+mean(ahrrlong2$prepregnBMI)
+mean(ahrrlong2$BMI_2T)
+
