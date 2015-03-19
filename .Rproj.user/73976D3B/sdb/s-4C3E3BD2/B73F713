@@ -1,0 +1,16 @@
+{
+    "contents" : "library(\"colorspace\", lib.loc=\"~/R/win-library/3.1\")\nlibrary(reshape2)\nlibrary(gee)\nlibrary(ggplot2)\nlibrary(foreign)\nlibrary(mgcv)\nlibrary(stats)\nlibrary(rmarkdown)",
+    "created" : 1426774688465.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3701091808",
+    "id" : "B73F713",
+    "lastKnownWriteTime" : 1426770311,
+    "path" : "C:/R_Work_Dir/LibrariesToStart.R",
+    "project_path" : "LibrariesToStart.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

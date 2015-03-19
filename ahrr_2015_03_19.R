@@ -498,3 +498,6 @@ mod5f<-gee(value ~ BMI_2T + variable + cbc_mono+ gran_perc_derived+gest_age_week
              multiparous, id = folio, corstr = "exchangeable", data = ahrrlong2)
 summary(mod5f)$coefficients
 print.model(mod5f)
+#########  Let's see what happens to GIT
+print(sessionInfo(), locale=FALSE)
+
