@@ -498,6 +498,136 @@ mod5f<-gee(value ~ BMI_2T + variable + cbc_mono+ gran_perc_derived+gest_age_week
              multiparous, id = folio, corstr = "exchangeable", data = ahrrlong2)
 summary(mod5f)$coefficients
 print.model(mod5f)
+
+#nonmissing complete case with cbc
+
+
+mycovars6 <- c("folio","BMI_2T", "gest_age_weeks_d", "Fenton_Z_score","edad",  "cbc_mono", 
+               "gran_perc_derived",
+               "male", "ed_LT_12", "ed_gt_12", "smoke_house_outside",
+               "multiparous", "value","variable","ahrr_mean")
+cbcDF<-ahrrlong2[,c(mycovars6)]
+nomissCbc<-na.omit(cbcDF)
+
+mod5g<-gee(value ~ BMI_2T + variable +gest_age_weeks_d +
+             Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, id = folio, corstr = "exchangeable", data = nomissCbc)
+summary(mod5g)$coefficients
+print.model(mod5g)
+
+
+mod5h<-gee(value ~ BMI_2T + variable + cbc_mono+ gran_perc_derived+gest_age_weeks_d +
+             Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, id = folio, corstr = "exchangeable", data = nomissCbc)
+summary(mod5h)$coefficients
+print.model(mod5h)
+
+
+
+
+
+
+
 #########  Let's see what happens to GIT
 print(sessionInfo(), locale=FALSE)
+ 
+# Figure out n's by running linear model and counting resids
+resid(modzz)
+#512 in unadjusted lm
 
+modzz1<-lm(ahrr_mean~BMI_2T+ gest_age_weeks_d +
+             Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, (data=AHRR_GEE))
+
+summary(modzz1)
+zz1<-resid(modzz1)
+as.data.frame(zz1)
+
+######## 507 in fully adjusted model
+
+########CBC n=405 model
+
+modzz2<-lm(ahrr_mean~BMI_2T+ cbc_mono+ gran_perc_derived+gest_age_weeks_d +
+             Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, (data=AHRR_GEE))
+
+summary(modzz2)
+zz2<-resid(modzz2)
+as.data.frame(zz2)
+
+
+############## Folic acid 
+
+modzz3a<-lm(ahrr_mean~BMI_2T+ folic_d+ gest_age_weeks_d +
+             Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, (data=AHRR_GEE))
+
+summary(modzz3a)
+zz3a<-resid(modzz3a)
+as.data.frame(zz3a)
+
+modzz3<-gee(value ~ folic_d+ variable, 
+            id = folio, corstr = "exchangeable", data = ahrrlong2)
+summary(modzz3)$coefficients
+print.model(modzz3)
+
+# extract subest where folic_d not NA
+mycovars5 <- c("folio","BMI_2T", "folic_d", "gest_age_weeks_d", "Fenton_Z_score","edad",  
+                 "male", "ed_LT_12", "ed_gt_12", "smoke_house_outside",
+                 "multiparous", "value","variable","ahrr_mean")
+folicDF<-ahrrlong2[,c(mycovars5)]
+nomissFolic<-na.omit(folicDF)
+
+modzz4<-gee(value ~ folic_d+ variable, 
+            id = folio, corstr = "exchangeable", data = ahrrlong2)
+summary(modzz4)$coefficients
+print.model(modzz4)
+
+
+modzz5<-gee(value ~ BMI_2T + variable +gest_age_weeks_d +
+             Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, id = folio, corstr = "exchangeable", data = nomissFolic)
+summary(modzz5)$coefficients
+print.model(modzz5)
+
+#folic acid intake
+
+modzz6<-gee(value ~ BMI_2T +folic_d+ variable +gest_age_weeks_d +
+             Fenton_Z_score +edad + 
+              male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+              multiparous, id = folio, corstr = "exchangeable", data = nomissFolic)
+summary(modzz6)$coefficients
+print.model(modzz6)
+
+
+modzz7<-lm(ahrr_mean~BMI_2T +folic_d +gest_age_weeks_d +
+             Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, (nomissFolic))
+# n=65 for folic acid non-missings
+summary(modzz7)
+zz7<-resid(modzz7)
+as.data.frame(zz7)
+
+# Laborotory storage batch effects
+
+
+
+mod5a<-gee(value ~ BMI_2T + variable + Christiani_Lab +gest_age_weeks_d + Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, id = folio, corstr = "exchangeable", data = ahrrlong2)
+summary(mod5a)$coefficients
+print.model(mod5a)
+
+# Christiani lab did not confound THUS the below is final model
+mod5b<-gee(value ~ BMI_2T + variable + gest_age_weeks_d + Fenton_Z_score +edad + 
+             male+ ed_LT_12 +ed_gt_12 + smoke_house_outside+
+             multiparous, id = folio, corstr = "exchangeable", data = ahrrlong2)
+summary(mod5b)$coefficients
+print.model(mod5b)
