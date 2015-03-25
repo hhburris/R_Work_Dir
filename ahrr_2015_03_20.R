@@ -748,10 +748,16 @@ mcovars10<-c("folio", "Fenton_Z_score", "BMI_2T", "gest_age_weeks_d")
 nomiss3<-AHRR_GEE[,c(mcovars10)]
 nomissBWTGA<-na.omit(nomiss3)
 
-cor(nomissBWTGA$BMI_2T, nomissBWTGA$Fenton_Z_score, method="pearson") 
+t<-cor(nomissBWTGA$BMI_2T, nomissBWTGA$Fenton_Z_score, method="pearson") 
 cor(nomissBWTGA$BMI_2T, nomissBWTGA$gest_age_weeks_d, method="pearson")
 cor(nomissBWTGA$gest_age_weeks_d, nomissBWTGA$Fenton_Z_score, method="pearson") 
 
 plot(nomissBWTGA$gest_age_weeks_d, nomissBWTGA$Fenton_Z_score)
 plot(nomissBWTGA$BMI_2T, nomissBWTGA$Fenton_Z_score)
 plot(nomissBWTGA$BMI_2T, nomissBWTGA$gest_age_weeks_d)
+
+summary (t)
+t1<-lm(nomissBWTGA$BMI_2T~nomissBWTGA$Fenton_Z_score)
+summary(t1)
+plot(t1)
+mean(nomissBWTGA$Fenton_Z_score[nomissBWTGA$nomissBWTGA$BMI_2T<32])
