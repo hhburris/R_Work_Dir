@@ -7,9 +7,12 @@ library("ggplot2", lib.loc="~/R/win-library/3.1")
 library("mgcv", lib.loc="C:/Program Files/R/R-3.1.3/library")
 
 
-SalivaPart<-read.sas7bdat("H:/K application/DATA FOR ANALYSIS/PROGRESS_March_2015/salivapart.sas7bdat")
+SalivaPart<-read.sas7bdat("C:/R_Work_Dir/Saliva/salivapart.sas7bdat")
+bob6<-read.sas7bdat("C:/R_Work_Dir/Saliva/bob5.sas7bdat")
+names(bob6)
 
-
+mergex<-read.sas7bdat("C:/R_Work_Dir/Saliva/merge.sas7bdat")
+names(mergex)
 #modeling w/ ahrr
 
 SP2<-SalivaPart[SalivaPart$ahrr_mean>20,]
@@ -123,6 +126,37 @@ modDHEA2<-lm(meanlogdhea~BPb__g_dL_M2T+male+BMI_2T+ed_LT_12+ed_gt_12+multiparous
 summary(modDHEA2)  #added lead with no difference
 
 # NEED TO LOOK AT OTHER Hormones with lead
+modest2<-lm(meanlogest~BPb__g_dL_M2T+male+BMI_2T+ed_LT_12+ed_gt_12+multiparous+
+               smoke_house_outside, data=SalivaPart)
+summary(modest2)
 
+modtest2<-lm(meanlogtest~BPb__g_dL_M2T+male+BMI_2T+ed_LT_12+ed_gt_12+multiparous+
+              smoke_house_outside, data=SalivaPart)
+summary(modtest2)
 
+modmel2<-lm(meanlogmel~BPb__g_dL_M2T+male+BMI_2T+ed_LT_12+ed_gt_12+multiparous+
+               smoke_house_outside, data=SalivaPart)
+summary(modmel2)
+
+modcort2<-lm(cortslope~BPb__g_dL_M2T+male+BMI_2T+ed_LT_12+ed_gt_12+multiparous+
+              smoke_house_outside, data=SalivaPart)
+summary(modcort2)
+
+# GESTATIONAL AGE WITH SPLINE
+
+modspga<-gam(gest_age_days_d~s(meanlogprog,fx=TRUE,k=3) + multiparous+as.factor(ED_level)+s(BMI_2T, fx=TRUE,k=3)+
+            smoke_house_outside, na.action=na.omit, data=SalivaPart)
+summary(modspga)
+
+plot(modspga,pch=18, scale=0, col=8, main ='natural spline', ylab="GestAge")
+
+modspga2<-gam(gest_age_days_d~s(meanlogprog,fx=TRUE,k=3) + s(ahrr_mean, fx=TRUE, k=5)+ multiparous+as.factor(ED_level)+s(BMI_2T, fx=TRUE,k=3)+
+               smoke_house_outside, na.action=na.omit, data=SP2)
+summary(modspga2)
+
+plot(modspga2,pch=18, scale=0, col=8, main ='natural spline', ylab="GestAge")
+
+names(SalivaPart)
+
+SP2$Cervix_PTGER2_Mean
 
