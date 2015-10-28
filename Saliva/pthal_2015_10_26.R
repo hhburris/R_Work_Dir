@@ -241,7 +241,7 @@ plot(MiBPlm)
 mod_MiBP<-gam(gest_age_days_d~s(log(MBzP),fx=TRUE,k=3),
               na.action=na.omit, data=salphtal2Tc)
 summary(mod_MiBP)
-plot(mod_MiBP)
+plot(mod_MiBP,scale=0, col=12, main ='Second Trimster MiBP', ylab="Difference in Gestational Age (days)")
 
 #T3
 fivenum(salphtal3Tc$MiBP)
@@ -259,7 +259,7 @@ plot(MiBPlm3)
 mod_MiBP3<-gam(gest_age_days_d~s(log(MiBP),fx=TRUE,k=3),
                na.action=na.omit, data=salphtal3Tc)
 summary(mod_MiBP3)
-plot(mod_MiBP3)
+plot(mod_MiBP3,scale=0, col=12, main ='Third Trimster MiBP', ylab="Difference in Gestational Age (days)")
 
 plot(log(salphtal2Tc$MiBP),log(salphtal2Tc$MiBP))
 
@@ -281,7 +281,7 @@ plot(MEOHPlm)
 mod_MEOHP<-gam(gest_age_days_d~s(log(MEOHP),fx=TRUE,k=3),
               na.action=na.omit, data=salphtal2Tc)
 summary(mod_MEOHP)
-plot(mod_MEOHP)
+plot(mod_MEOHP, scale=0, col=12, main ='Second Trimster MEOHP', ylab="Difference in Gestational Age (days)")
 
 #T3
 
@@ -304,7 +304,7 @@ plot(MEOHPlm3)
 mod_MEOHP3<-gam(gest_age_days_d~s(log(MEOHP),fx=TRUE,k=3),
                na.action=na.omit, data=salphtal3Tc)
 summary(mod_MEOHP3)
-plot(mod_MEOHP3)
+plot(mod_MEOHP3,scale=0, col=12, main ='Third Trimster MEOHP', ylab="Difference in Gestational Age (days)")
 
 plot(log(salphtal2Tc$MEOHP),log(salphtal2Tc$MEOHP))
 
@@ -331,8 +331,7 @@ plot(MCMHPlm)
 mod_MCMHP<-gam(gest_age_days_d~s(log(MCMHP),fx=TRUE,k=3),
                na.action=na.omit, data=salphtal2Tc)
 summary(mod_MCMHP)
-plot(mod_MCMHP)
-
+plot(mod_MCMHP,scale=0, col=12, main ='Second Trimster MCMHP', ylab="Difference in Gestational Age (days)")
 #T3
 fivenum(salphtal3Tc$MCMHP)
 summary(salphtal3Tc$MCMHP)
@@ -351,7 +350,7 @@ plot(MCMHPlm3)
 mod_MCMHP3<-gam(gest_age_days_d~s(log(MCMHP),fx=TRUE,k=3),
                 na.action=na.omit, data=salphtal3Tc)
 summary(mod_MCMHP3)
-plot(mod_MCMHP3)
+plot(mod_MCMHP3, scale=0, col=12, main ='Third Trimster MCMHP', ylab="Difference in Gestational Age (days)")
 
 
 
@@ -375,7 +374,7 @@ plot(MEHHPlm)
 mod_MEHHP<-gam(gest_age_days_d~s(log(MEHHP),fx=TRUE,k=3),
                na.action=na.omit, data=salphtal2Tc)
 summary(mod_MEHHP)
-plot(mod_MEHHP)
+plot(mod_MEHHP,scale=0, col=12, main ='Second Trimster MEHHP', ylab="Difference in Gestational Age (days)")
 
 #T3
 fivenum(salphtal3Tc$MEHHP)
@@ -395,7 +394,7 @@ plot(MEHHPlm3)
 mod_MEHHP3<-gam(gest_age_days_d~s(log(MEHHP),fx=TRUE,k=3),
                 na.action=na.omit, data=salphtal3Tc)
 summary(mod_MEHHP3)
-plot(mod_MEHHP3)
+plot(mod_MEHHP3,scale=0, col=12, main ='Third Trimster MEHHP', ylab="Difference in Gestational Age (days)")
 
 #MEHP
 #T2
@@ -404,6 +403,8 @@ summary(salphtal2Tc$MEHP)
 sd(salphtal2Tc$MEHP)
 summary(log(salphtal2Tc$MEHP))
 sd(log(salphtal2Tc$MEHP))
+exp(mean(log(salphtal2Tc$MEHP)))
+t.test(log(MEHP)~preterm,data=salphtal2Tc)
 
 MEHPlm<-lm(gest_age_days_d~log(MEHP), data=salphtal2Tc)
 summary(MEHPlm)
@@ -413,7 +414,7 @@ plot(MEHPlm)
 mod_MEHP<-gam(gest_age_days_d~s(log(MEHP),fx=TRUE,k=3),
                na.action=na.omit, data=salphtal2Tc)
 summary(mod_MEHP)
-plot(mod_MEHP)
+plot(mod_MEHP, scale=0, col=12, main ='Second Trimster MEHP', ylab="Difference in Gestational Age (days)")
 
 #T3
 
@@ -422,6 +423,8 @@ summary(salphtal3Tc$MEHP)
 sd(salphtal3Tc$MEHP)
 summary(log(salphtal3Tc$MEHP))
 sd(log(salphtal3Tc$MEHP))
+exp(mean(log(salphtal3Tc$MEHP)))
+t.test(log(MEHP)~preterm,data=salphtal3Tc)
 
 MEHPlm3<-lm(gest_age_days_d~log(MEHP), data=salphtal3Tc)
 summary(MEHPlm3)
@@ -431,7 +434,7 @@ plot(MEHPlm3)
 mod_MEHP3<-gam(gest_age_days_d~s(log(MEHP),fx=TRUE,k=3),
                 na.action=na.omit, data=salphtal3Tc)
 summary(mod_MEHP3)
-plot(mod_MEHP3)
+plot(mod_MEHP3,scale=0, col=12, main ='Third Trimster MEHP', ylab="Difference in Gestational Age (days)")
 
 
 #BPA
@@ -455,7 +458,7 @@ plot(BPAlm)
 mod_BPA<-gam(gest_age_days_d~s(log(BPA),fx=TRUE,k=3),
               na.action=na.omit, data=salphtal2Tc)
 summary(mod_BPA)
-plot(mod_BPA)
+plot(mod_BPA, scale=0, col=12, main ='Second Trimster BPA', ylab="Difference in Gestational Age (days)")
 
 #T3
 fivenum(salphtal3Tc$BPA)
@@ -498,7 +501,7 @@ plot(MEPlm)
 mod_MEP<-gam(gest_age_days_d~s(log(MEP),fx=TRUE,k=3),
              na.action=na.omit, data=salphtal2Tc)
 summary(mod_MEP)
-plot(mod_MEP)
+plot(mod_MEP,scale=0, col=12, main ='Second Trimster MEP', ylab="Difference in Gestational Age (days)")
 
 #T3
 fivenum(salphtal3Tc$MEP)
@@ -523,4 +526,12 @@ plot(mod_MEP3, pch=18, scale=0, col=12, main ='Third Trimster MEP', ylab="Differ
 
 ##########
 
+#MEP Most promising both in TTEST and SPline/LM
 
+names(salphtal2Tc)
+MEPlma<-lm(gest_age_days_d~log(MEP)+newBMI2T+edad+smoke_house_outside+ed_LT_12+ed_gt_12  , data=salphtal2Tc)
+summary(MEPlma)
+hist(salphtal2Tc$gest_age_days_d)
+
+MEP3lma<-lm(gest_age_days_d~log(MEP)+newBMI2T+edad+smoke_house_outside+ed_LT_12+ed_gt_12  , data=salphtal3Tc)
+summary(MEP3lma)
