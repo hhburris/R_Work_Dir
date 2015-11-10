@@ -5,6 +5,11 @@ library(Hmisc)
 library(ggplot2)
 library(reshape2)
 library(mgcv)
+library("colorspace", lib.loc="~/R/win-library/3.1")
+library(gee)
+library(foreign)
+library(stats)
+library(rmarkdown)
 
 # import the dataset
 dat <- read_excel("H:/Epigenetics Bob Wright/Saliva/BPAAllan.xlsx", 1)
@@ -535,3 +540,7 @@ hist(salphtal2Tc$gest_age_days_d)
 
 MEP3lma<-lm(gest_age_days_d~log(MEP)+newBMI2T+edad+smoke_house_outside+ed_LT_12+ed_gt_12  , data=salphtal3Tc)
 summary(MEP3lma)
+
+################
+
+names(GASub)
